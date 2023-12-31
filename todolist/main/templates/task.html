@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} | Tasks {% endblock %}
+
+{% block content %}
+    <section class="tasks">
+        {% if user.is_authenticated %}
+            <div class="top-bar">
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">+</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'task-list-create' %}">+ Create Task List</a>
+                        {% if task_list %}
+                            <a href="{% url 'task-create' %}">+ Create Task</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Tags</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'tag-create' %}">+ Create Tag</a>
+                        {% if tags %}
+                            <hr>
+                            {% for tag in tags %}
+                                <div class="tag-list">
+                                    <a href="{{ tag.id }}/edit-tag">{{ tag.name }}</a>
+                                    <div class="side">
+                                        <a href="{{ tag.id }}/delete-tag"><i class="fa-regular fa-trash-can"></i></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% include 'includes/pagination.html' %}
+            <section class="task-container">
+                {% if task_list %}
+                    {% for task_list_item in task_list %}
+                        <div class="task-list">
+                            <div class="list">
+                                <h1 class="list-title">
+                                    <a href="{{ task_list_item.id }}/edit-list">{{ task_list_item.title }}</a>
+                                </h1>
+                                <hr>
+                                <br>
+                                <ul>
+                                    {% for task in tasks %}
+                                        {% if task.task_list == task_list_item %}
+                                            {% if task.completed == False %}
+                                                <li>
+                                                    <a href="{{ task.id }}/edit" style="color: {% if task.priority %}{% if task.priority.level == 1 %}#33cc33{% elif task.priority.level == 2 %}#3366ff{% elif task.priority.level == 3 %}#ff3333{% endif %}{% else %}#ffffff{% endif %};">
+                                                        {{ task.title }}{% if task.due_date %} | {{ task.due_date }}{% endif %}
+                                                    </a>
+                                                    <a href="{{ task.id }}/delete" class="sbs"><i class="fa-regular fa-trash-can"></i></a>
+                                                    {% if task.tag.all %}
+                                                        <p class="tags" style="cursor: default;">
+                                                            Tags:
+                                                            {% for tag in task.tag.all %}
+                                                                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                                                            {% endfor %}
+                                                        </p>
+                                                    {% endif %}
+                                                    {% if task.description %}
+                                                        <p style="cursor: default;">{{ task.description }}</p>
+                                                    {% endif %}
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a href="{{ task.id }}/edit" class="completed-task">{{ task.title }}{% if task.due_date %} | {{ task.due_date }}{% endif %}</a>
+                                                    <a href="{{ task.id }}/delete" class="sbs"><i class="fa-regular fa-trash-can"></i></a>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                <br>
+                                <hr>
+                                <a href="{{ task_list_item.id }}/delete-list" style="color: white; font-size: x-small; float: right;">delete</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h1 class="center">You currently have no tasks</h1>
+                {% endif %}
+            </section>
+        {% else %}
+            <p class="center">
+                <a href="/login" class="center">Log In</a>
+                <br>
+                <br>
+                to start creating tasks
+            </p>
+        {% endif %}
+    </section>
+{% endblock %}
