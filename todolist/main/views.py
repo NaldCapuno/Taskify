@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from . import forms, models
 
 class HomeView(ListView):
-    def get(self, response):
-        return render(response, 'home.html', {})
+    def get(self, request):
+        return render(request, 'home.html', {})
 
 class TaskView(ListView):
     model = models.TaskList
@@ -73,17 +73,17 @@ class TaskListCreateView(CreateView):
     template_name = 'CRUD/task-list-create.html'
     form_class = forms.TaskListCreateForm
 
-    def get(self, response):
-        form = self.form_class(initial={'user': response.user})
-        form.fields['user'].queryset = User.objects.filter(id=response.user.id)
-        return render(response, self.template_name, {'form': form})
+    def get(self, request):
+        form = self.form_class(initial={'user': request.user})
+        form.fields['user'].queryset = User.objects.filter(id=request.user.id)
+        return render(request, self.template_name, {'form': form})
 
-    def post(self, response):
-        form = self.form_class(response.POST)
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
             return redirect('task')
-        return render(response, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 class TaskListUpdateView(UpdateView):
     model = models.TaskList
@@ -111,17 +111,17 @@ class TagCreateView(CreateView):
     template_name = 'CRUD/tag-create.html'
     form_class = forms.TagCreateForm
 
-    def get(self, response):
-        form = self.form_class(initial={'user': response.user})
-        form.fields['user'].queryset = User.objects.filter(id=response.user.id)
-        return render(response, self.template_name, {'form': form})
+    def get(self, request):
+        form = self.form_class(initial={'user': request.user})
+        form.fields['user'].queryset = User.objects.filter(id=request.user.id)
+        return render(request, self.template_name, {'form': form})
 
-    def post(self, response):
-        form = self.form_class(response.POST)
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
             return redirect('task')
-        return render(response, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form})
     
 class TagUpdateView(UpdateView):
     model = models.Tag
