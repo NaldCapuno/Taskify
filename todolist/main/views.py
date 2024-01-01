@@ -33,18 +33,19 @@ class TaskCreateView(CreateView):
     template_name = 'CRUD/task-create.html'
     form_class = forms.TaskCreateForm
 
-    def get(self, response):
-        form = self.form_class(initial={'user': response.user})
-        form.fields['user'].queryset = User.objects.filter(id=response.user.id)
-        form.fields['task_list'].queryset = models.TaskList.objects.filter(user=response.user)
-        return render(response, self.template_name, {'form': form})
+    def get(self, request, task_list_id, *args, **kwargs):
+        task_list = models.TaskList.objects.get(id=task_list_id)
+        form = self.form_class(initial={'user': request.user, 'task_list': task_list})
+        form.fields['user'].queryset = User.objects.filter(id=request.user.id)
+        form.fields['task_list'].queryset = models.TaskList.objects.filter(user=request.user)
+        return render(request, self.template_name, {'form': form})
 
-    def post(self, response):
-        form = self.form_class(response.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
             return redirect('task')
-        return render(response, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form})
     
 class TaskUpdateView(UpdateView):
     model = models.Task

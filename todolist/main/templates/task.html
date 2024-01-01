@@ -3,18 +3,10 @@
 {% block title %} | Tasks {% endblock %}
 
 {% block content %}
-    <section class="tasks">
+    <section>
         {% if user.is_authenticated %}
             <div class="top-bar">
-                <div class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">+</a>
-                    <div class="dropdown-content">
-                        <a href="{% url 'task-list-create' %}">+ Create Task List</a>
-                        {% if task_list %}
-                            <a href="{% url 'task-create' %}">+ Create Task</a>
-                        {% endif %}
-                    </div>
-                </div>
+                <a href="{% url 'task-list-create' %}" class="dropbtn">+</a>
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="dropbtn">Tags</a>
                     <div class="dropdown-content">
@@ -76,6 +68,7 @@
                                 </ul>
                                 <br>
                                 <hr>
+                                <a href="{% url 'task-create' task_list_item.id %}" style="color: white; font-size: x-small; float: left;">+ Task</a>
                                 <a href="{{ task_list_item.id }}/delete-list" style="color: white; font-size: x-small; float: right;">delete</a>
                             </div>
                         </div>

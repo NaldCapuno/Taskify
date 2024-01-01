@@ -10,6 +10,7 @@ body {
       rgba(12, 12, 12, 0.7)
     ), url('../images/bg.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* MENU */
@@ -188,18 +189,6 @@ main .task-list {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    main .task-list {
-        width: 50%;
-    }
-}
-
-@media (max-width: 576px) {
-    main .task-list {
-        width: 90%;
-    }
-}
-
 main .list {
     padding: 25px;
     border-radius: 15px;
@@ -364,4 +353,29 @@ main .center {
 
 .page-item.active .page-link {
     color: white;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    main {
+        min-height: 75vh;
+    }
+}
+
+@media (max-width: 576px) {
+    main {
+        min-height: 80vh;
+    }
+
+    main .task-container {
+        margin-top: 50px;
+    }
+
+    main .task-list {
+        width: 90%;
+    }
+
+    .pagination-container {
+        top: 97.5px;
+    }
 }
