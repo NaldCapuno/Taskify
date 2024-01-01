@@ -377,3 +377,12 @@ main .center {
         top: 97.5px;
     }
 }
+
+@media (max-width: 442px) {
+    main {
+        min-height: 95vh;
+    }
+    .home-title {
+        margin-top: 50px;
+    }
+}
