@@ -380,7 +380,7 @@ main .center {
 
 @media (max-width: 442px) {
     main {
-        min-height: 95vh;
+        min-height: 93vh;
     }
     .home-title {
         margin-top: 50px;
