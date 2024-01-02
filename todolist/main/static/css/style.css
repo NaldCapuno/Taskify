@@ -79,6 +79,7 @@ footer .taskify {
     padding: 10px 15px;
     margin-top: 5px;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
 }
 
@@ -280,6 +281,7 @@ main .back-button {
     color: black;
     padding: 10px 15px;
     border-radius: 5px;
+    border: none;
     text-decoration: none;
     cursor: pointer;
 }
