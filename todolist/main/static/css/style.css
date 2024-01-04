@@ -356,15 +356,21 @@ main .center {
 }
 
 /* Responsiveness */
+@media (max-width: 1920px) {
+    main {
+        min-height: 79.8svh;
+    }
+}
+
 @media (max-width: 768px) {
     main {
-        min-height: 75vh;
+        min-height: 75svh;
     }
 }
 
 @media (max-width: 576px) {
     main {
-        min-height: 80vh;
+        min-height: 80svh;
     }
 
     main .task-container {
@@ -382,7 +388,7 @@ main .center {
 
 @media (max-width: 442px) {
     main {
-        min-height: 93vh;
+        min-height: 93svh;
     }
     .home-title {
         margin-top: 50px;
