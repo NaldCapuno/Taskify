@@ -38,6 +38,7 @@ class TaskCreateView(CreateView):
         form = self.form_class(initial={'user': request.user, 'task_list': task_list})
         form.fields['user'].queryset = User.objects.filter(id=request.user.id)
         form.fields['task_list'].queryset = models.TaskList.objects.filter(user=request.user)
+        form.fields['tag'].queryset = models.Tag.objects.filter(user=request.user)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
@@ -56,6 +57,7 @@ class TaskUpdateView(UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['user'].queryset = models.User.objects.filter(id=self.request.user.id)
+        form.fields['tag'].queryset = models.Tag.objects.filter(user=self.request.user)
         return form
 
 class TaskDeleteView(DeleteView):
