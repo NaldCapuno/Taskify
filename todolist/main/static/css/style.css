@@ -99,7 +99,7 @@ footer .taskify {
 /* MAIN */
 main {
     margin: 20px 15px;
-    min-height: 67.5vh;
+    min-height: 67.5svh;
 }
 
 /* HOME */
@@ -356,9 +356,16 @@ main .center {
 }
 
 /* Responsiveness */
+/* Responsiveness */
 @media (max-width: 1920px) {
     main {
         min-height: 79.8svh;
+    }
+}
+
+@media (max-width: 1366px) {
+    main {
+        min-height: 71.8svh;
     }
 }
 
@@ -383,14 +390,5 @@ main .center {
 
     .pagination-container {
         top: 97.5px;
-    }
-}
-
-@media (max-width: 442px) {
-    main {
-        min-height: 93svh;
-    }
-    .home-title {
-        margin-top: 50px;
     }
 }
